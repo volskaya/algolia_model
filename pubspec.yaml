@@ -1,0 +1,25 @@
+name: algolia_model
+description: Extension of firebase_model to handle algolia snapshots
+version: 1.0.0
+author: Roland Volskaya
+homepage: github.com/volskaya/algolia_model
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  async: ^2.4.2
+  algolia: ^0.1.7
+  cloud_firestore: ^0.14.3
+
+  firestore_model:
+    path: /home/projects/packages/firestore_model
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
