@@ -40,7 +40,7 @@ class AlgoliaModelBuilder<T extends FirestoreModel<T>> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AlgoliaBuilder<T>(
-        transform: (s) => AlgoliaModel.fromSnapshot<T>(s),
+        transform: (s) => AlgoliaModel.fromFirestoreSnapshot<T>(s),
         dispose: (m) => m.dispose(),
         queryBuilder: queryBuilder,
         query: query,

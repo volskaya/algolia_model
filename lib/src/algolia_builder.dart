@@ -2,18 +2,16 @@ import 'dart:developer' as developer;
 
 import 'package:algolia/algolia.dart';
 import 'package:algolia_model/src/util/debounce.dart';
-import 'package:firestore_model/firestore_model.dart';
 import 'package:flutter/material.dart';
 
 /// [AlgoliaQuery] builder from the search string.
 typedef AlgoliaSearchQueryBuilder = AlgoliaQuery Function(String query);
 
-/// [AlgoliaObjectSnapshot] transform callback to its relevant [FirestoreModel].
-typedef AlgoliaBuilderTransformCallback<T extends FirestoreModel<T>> = Future<T> Function(
-    AlgoliaObjectSnapshot snapshot);
+/// [AlgoliaObjectSnapshot] transform callback to its relevant model.
+typedef AlgoliaBuilderTransformCallback<T> = Future<T> Function(AlgoliaObjectSnapshot snapshot);
 
 /// [AlgoliaBuilder] child builder.
-typedef AlgoliaBuilderChildBuilder<T extends FirestoreModel<T>> = Widget Function(
+typedef AlgoliaBuilderChildBuilder<T> = Widget Function(
   BuildContext context,
   List<T> results,
   VoidCallback paginator,
@@ -22,7 +20,7 @@ typedef AlgoliaBuilderChildBuilder<T extends FirestoreModel<T>> = Widget Functio
 );
 
 /// Builder of lists of [AlgoliaQuery]s.
-class AlgoliaBuilder<T extends FirestoreModel<T>> extends StatefulWidget {
+class AlgoliaBuilder<T> extends StatefulWidget {
   /// Constructs [AlgoliaBuilder].
   const AlgoliaBuilder({
     Key key,
@@ -70,7 +68,7 @@ class AlgoliaBuilder<T extends FirestoreModel<T>> extends StatefulWidget {
   _AlgoliaBuilderState<T> createState() => _AlgoliaBuilderState<T>();
 }
 
-class _AlgoliaBuilderState<T extends FirestoreModel<T>> extends State<AlgoliaBuilder<T>> {
+class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
   bool _paginating = false;
   String _lastFilter = '';
   AlgoliaQuerySnapshot _query;

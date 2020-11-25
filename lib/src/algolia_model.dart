@@ -7,6 +7,9 @@ import 'package:firestore_model/firestore_model.dart';
 /// Callback to convert algolia -> firestore reference.
 typedef AlgoliaModelReferenceBuilder = DocumentReference Function<D>(AlgoliaObjectReference reference);
 
+/// Deserializer of the Algolia snapshots.
+typedef AlgoliaModelDeserializer = D Function<D>(Map<String, dynamic> data);
+
 /// Return a map where field `_tags` is moved to field `tags`.
 Map<String, dynamic> _withUnderscoreTags(Map<String, dynamic> map) {
   if (map.containsKey('_tags')) {
@@ -17,13 +20,25 @@ Map<String, dynamic> _withUnderscoreTags(Map<String, dynamic> map) {
 }
 
 /// [AlgoliaModel] provides helper methods to work with algolia snapshots.
-class AlgoliaModel {
+abstract class AlgoliaModel<T> {
   /// Callback to convert algolia -> firestore reference.
   static AlgoliaModelReferenceBuilder referenceBuilder;
 
+  /// Deserializer of the Algolia snapshots.
+  static AlgoliaModelDeserializer deserializer;
+
+  /// Serializes a basic Algolia model.
+  static D fromSnapshot<D>(AlgoliaObjectSnapshot snapshot) {
+    assert(deserializer != null, '[AlgoliaModel.deserializer] must be defined');
+    final data = _withUnderscoreTags(snapshot.data);
+
+    // Algolia package strips the `objectID`. I still use it, when I deserialize my models.
+    return AlgoliaModel.deserializer<D>(data..['objectID'] = snapshot.objectID);
+  }
+
   /// Get a referenced model from the [snapshot]'s id or use this snapshot to
   /// build the new model.
-  static Future<D> fromSnapshot<D extends FirestoreModel<D>>(AlgoliaObjectSnapshot snapshot) {
+  static Future<D> fromFirestoreSnapshot<D extends FirestoreModel<D>>(AlgoliaObjectSnapshot snapshot) {
     assert(referenceBuilder != null, '[AlgoliaModel.referenceBuilder] must be defined');
 
     final data = _withUnderscoreTags(snapshot.data);
@@ -31,7 +46,7 @@ class AlgoliaModel {
 
     return FirestoreModel.referenceWithBuilder(
       reference,
-      () => FirebaseModel.build<D>(FirebaseModelType.firestore, reference.path, data),
+      () => FirebaseModel.builder<D>(data),
     );
   }
 }
