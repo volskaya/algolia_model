@@ -14,23 +14,23 @@ typedef AlgoliaBuilderTransformCallback<T> = Future<T> Function(AlgoliaObjectSna
 typedef AlgoliaBuilderChildBuilder<T> = Widget Function(
   BuildContext context,
   List<T> results,
-  VoidCallback paginator,
-  AlgoliaQuerySnapshot query,
-  String identifier,
+  VoidCallback? paginator,
+  AlgoliaQuerySnapshot? query,
+  String? identifier,
 );
 
 /// Builder of lists of [AlgoliaQuery]s.
 class AlgoliaBuilder<T> extends StatefulWidget {
   /// Constructs [AlgoliaBuilder].
   const AlgoliaBuilder({
-    Key key,
-    @required this.queryBuilder,
-    @required this.transform,
+    Key? key,
+    required this.builder,
+    required this.queryBuilder,
+    required this.transform,
     this.dispose,
     this.query = '',
     this.filter = '',
     this.searchFocusNode,
-    this.builder,
     this.itemsPerPage = 20,
     this.debounceDelay = const Duration(milliseconds: 250),
   }) : super(key: key);
@@ -45,7 +45,7 @@ class AlgoliaBuilder<T> extends StatefulWidget {
   final String filter;
 
   /// [FocusNode] of the search text field.
-  final FocusNode searchFocusNode;
+  final FocusNode? searchFocusNode;
 
   /// Amount of items to paginate.
   final int itemsPerPage;
@@ -62,7 +62,7 @@ class AlgoliaBuilder<T> extends StatefulWidget {
   final AlgoliaBuilderTransformCallback<T> transform;
 
   /// Dispose callback of the transformed models.
-  final ValueChanged<T> dispose;
+  final ValueChanged<T>? dispose;
 
   @override
   _AlgoliaBuilderState<T> createState() => _AlgoliaBuilderState<T>();
@@ -71,13 +71,13 @@ class AlgoliaBuilder<T> extends StatefulWidget {
 class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
   bool _paginating = false;
   String _lastFilter = '';
-  AlgoliaQuerySnapshot _query;
+  AlgoliaQuerySnapshot? _query;
   List<T> __results = <T>[];
   List<T> get _results => __results;
   set _results(List<T> setter) {
     if (setter != __results) {
       developer.log('Disposing ${__results.length} old results', name: 'algolia_model');
-      __results.forEach(widget.dispose);
+      if (widget.dispose != null) __results.forEach(widget.dispose!);
     }
 
     __results = setter;
@@ -85,21 +85,21 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
   }
 
   Future _paginate(int page) async {
-    assert(widget.searchFocusNode == null || widget.searchFocusNode.hasFocus);
+    assert(widget.searchFocusNode == null || widget.searchFocusNode!.hasFocus);
 
     try {
-      if (_query == null || _paginating || _query.page > page || _query.nbPages <= page) {
+      if (_query == null || _paginating || _query!.page > page || _query!.nbPages <= page) {
         developer.log('Dropping redundant pagination request', name: 'algolia_model');
         return;
       }
 
       _paginating = true;
-      developer.log('Paginating ${_query.query} to page $page/${_query.nbPages}', name: 'algolia_model');
+      developer.log('Paginating ${_query!.query} to page $page/${_query!.nbPages}', name: 'algolia_model');
 
       final snapshot = await widget
-          .queryBuilder(_query.query)
-          .setFilters(widget.filter)
-          .setHitsPerPage(_query.hitsPerPage)
+          .queryBuilder(_query!.query)
+          .filters(widget.filter)
+          .setHitsPerPage(_query!.hitsPerPage)
           .setPage(page)
           .getObjects();
       final items = await Future.wait(snapshot.hits.map(widget.transform));
@@ -117,7 +117,7 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
         );
       } else {
         // Unmounted / Old query - items not needed anymore, dispose.
-        items.forEach(widget.dispose);
+        if (widget.dispose != null) items.forEach(widget.dispose!);
       }
     } finally {
       _paginating = false;
@@ -134,13 +134,13 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
     }
 
     _lastFilter = widget.filter;
-    List<T> results;
-    AlgoliaQuerySnapshot querySnapshot;
+    List<T>? results;
+    AlgoliaQuerySnapshot? querySnapshot;
 
     try {
       querySnapshot = await widget
           .queryBuilder(widget.query)
-          .setFilters(widget.filter)
+          .filters(widget.filter)
           .setHitsPerPage(widget.itemsPerPage)
           .getObjects();
 
@@ -158,7 +158,7 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
         _results = results?.toList(growable: true) ?? <T>[];
       } else {
         // Not mounted anymore, dispose the just arrived results.
-        results.forEach(widget.dispose);
+        if (widget.dispose != null) results?.forEach(widget.dispose!);
       }
     }
   }
@@ -183,7 +183,7 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
 
   @override
   void dispose() {
-    _results.forEach(widget.dispose);
+    if (widget.dispose != null) _results.forEach(widget.dispose!);
     super.dispose();
   }
 
@@ -196,7 +196,9 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
     super.didUpdateWidget(oldWidget);
   }
 
-  void _requestNextPage() => _paginate(_query.page + 1);
+  void _requestNextPage() {
+    if (_query != null) _paginate(_query!.page + 1);
+  }
 
   @override
   Widget build(BuildContext context) => widget.builder(
@@ -204,6 +206,6 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
         _results,
         _query != null ? _requestNextPage : null,
         _query,
-        _query != null ? _query.query + _lastFilter : null,
+        _query != null ? _query!.query + _lastFilter : null,
       );
 }

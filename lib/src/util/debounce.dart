@@ -9,8 +9,8 @@ class Debounce {
   static void milliseconds(
     int timeoutMs,
     Function target, [
-    List<dynamic> positionalArguments,
-    Map<Symbol, dynamic> namedArguments,
+    List<dynamic>? positionalArguments,
+    Map<Symbol, dynamic>? namedArguments,
   ]) {
     duration(
       Duration(milliseconds: timeoutMs),
@@ -24,8 +24,8 @@ class Debounce {
   static void seconds(
     int timeoutSeconds,
     Function target, [
-    List<dynamic> positionalArguments,
-    Map<Symbol, dynamic> namedArguments,
+    List<dynamic>? positionalArguments,
+    Map<Symbol, dynamic>? namedArguments,
   ]) {
     duration(
       Duration(seconds: timeoutSeconds),
@@ -43,15 +43,11 @@ class Debounce {
   static void duration(
     Duration timeout,
     Function target, [
-    List<dynamic> positionalArguments,
-    Map<Symbol, dynamic> namedArguments,
+    List<dynamic>? positionalArguments,
+    Map<Symbol, dynamic>? namedArguments,
   ]) {
-    if (timeouts.containsKey(target)) {
-      timeouts[target].cancel();
-    }
-
-    final timer = _DebounceTimer(timeout, target, positionalArguments, namedArguments);
-    timeouts[target] = timer;
+    timeouts[target]?.cancel();
+    timeouts[target] = _DebounceTimer(timeout, target, positionalArguments, namedArguments);
   }
 
   /// Run a function which is already debounced (queued to be run later),
@@ -62,15 +58,15 @@ class Debounce {
   /// a new version of [target] will be called with those arguments.
   static Future runAndClear(
     Function target, [
-    List<dynamic> positionalArguments,
-    Map<Symbol, dynamic> namedArguments,
+    List<dynamic>? positionalArguments,
+    Map<Symbol, dynamic>? namedArguments,
   ]) async {
     if (timeouts.containsKey(target)) {
       if (positionalArguments?.isNotEmpty == true || namedArguments?.isNotEmpty == true) {
-        timeouts[target].cancel();
+        timeouts[target]!.cancel();
         await Function.apply(target, positionalArguments, namedArguments);
       } else {
-        await timeouts[target].runNow();
+        await timeouts[target]!.runNow();
       }
       timeouts.remove(target);
     }
@@ -80,7 +76,7 @@ class Debounce {
   /// a debounced function has been removed.
   static bool clear(Function target) {
     if (timeouts.containsKey(target)) {
-      timeouts[target].cancel();
+      timeouts[target]!.cancel();
       timeouts.remove(target);
       return true;
     }
@@ -103,8 +99,8 @@ class _DebounceTimer {
 
   final Timer timer;
   final Function target;
-  final List<dynamic> positionalArguments;
-  final Map<Symbol, dynamic> namedArguments;
+  final List<dynamic>? positionalArguments;
+  final Map<Symbol, dynamic>? namedArguments;
 
   Future runNow() async {
     cancel();
