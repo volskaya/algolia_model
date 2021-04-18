@@ -96,12 +96,11 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
       _paginating = true;
       developer.log('Paginating ${_query!.query} to page $page/${_query!.nbPages}', name: 'algolia_model');
 
-      final snapshot = await widget
-          .queryBuilder(_query!.query)
-          .filters(widget.filter)
-          .setHitsPerPage(_query!.hitsPerPage)
-          .setPage(page)
-          .getObjects();
+      AlgoliaQuery query = widget.queryBuilder(_query!.query);
+      if (widget.filter.isNotEmpty) query = query.filters(widget.filter);
+      query = query.setHitsPerPage(_query!.hitsPerPage).setPage(page);
+
+      final snapshot = await query.getObjects();
       final items = await Future.wait(snapshot.hits.map(widget.transform));
 
       // NOTE: Query might be null by now.
@@ -138,11 +137,11 @@ class _AlgoliaBuilderState<T> extends State<AlgoliaBuilder<T>> {
     AlgoliaQuerySnapshot? querySnapshot;
 
     try {
-      querySnapshot = await widget
-          .queryBuilder(widget.query)
-          .filters(widget.filter)
-          .setHitsPerPage(widget.itemsPerPage)
-          .getObjects();
+      AlgoliaQuery query = widget.queryBuilder(widget.query);
+      if (widget.filter.isNotEmpty) query = query.filters(widget.filter);
+      query = query.setHitsPerPage(widget.itemsPerPage);
+
+      querySnapshot = await query.getObjects();
 
       developer.log(
         '"${widget.query}" got ${querySnapshot.hits.length}/'
