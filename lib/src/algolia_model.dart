@@ -22,10 +22,10 @@ Map<String, dynamic> _withUnderscoreTags(Map<String, dynamic> map) {
 /// [AlgoliaModel] provides helper methods to work with algolia snapshots.
 abstract class AlgoliaModel<T> {
   /// Callback to convert algolia -> firestore reference.
-  static AlgoliaModelReferenceBuilder referenceBuilder;
+  static AlgoliaModelReferenceBuilder? referenceBuilder;
 
   /// Deserializer of the Algolia snapshots.
-  static AlgoliaModelDeserializer deserializer;
+  static AlgoliaModelDeserializer? deserializer;
 
   /// Serializes a basic Algolia model.
   static D fromSnapshot<D>(AlgoliaObjectSnapshot snapshot) {
@@ -33,20 +33,25 @@ abstract class AlgoliaModel<T> {
     final data = _withUnderscoreTags(snapshot.data);
 
     // Algolia package strips the `objectID`. I still use it, when I deserialize my models.
-    return AlgoliaModel.deserializer<D>(data..['objectID'] = snapshot.objectID);
+    return AlgoliaModel.deserializer!<D>(
+      data
+        ..['objectID'] = snapshot.objectID
+        ..['highlightResult'] = snapshot.highlightResult,
+    );
   }
 
   /// Get a referenced model from the [snapshot]'s id or use this snapshot to
   /// build the new model.
   static Future<D> fromFirestoreSnapshot<D extends FirestoreModel<D>>(AlgoliaObjectSnapshot snapshot) {
     assert(referenceBuilder != null, '[AlgoliaModel.referenceBuilder] must be defined');
+    assert(FirebaseModel.builder != null, '[FirebaseModel.builder] must be defined');
 
     final data = _withUnderscoreTags(snapshot.data);
-    final reference = referenceBuilder<D>(snapshot.ref);
+    final reference = referenceBuilder!<D>(snapshot.ref);
 
     return FirestoreModel.referenceWithBuilder(
       reference,
-      () => FirebaseModel.builder<D>(data),
+      () => FirebaseModel.builder!<D>(data),
     );
   }
 }

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class AlgoliaModelBuilder<T extends FirestoreModel<T>> extends StatelessWidget {
   /// Constructs [AlgoliaModelBuilder].
   const AlgoliaModelBuilder({
-    Key key,
-    @required this.queryBuilder,
+    Key? key,
+    required this.builder,
+    required this.queryBuilder,
     this.query = '',
     this.filter = '',
     this.searchFocusNode,
-    this.builder,
     this.itemsPerPage = 20,
     this.debounceDelay = const Duration(milliseconds: 250),
   }) : super(key: key);
@@ -27,7 +27,7 @@ class AlgoliaModelBuilder<T extends FirestoreModel<T>> extends StatelessWidget {
   final String filter;
 
   /// [FocusNode] of the search text field.
-  final FocusNode searchFocusNode;
+  final FocusNode? searchFocusNode;
 
   /// Amount of items to paginate.
   final int itemsPerPage;
