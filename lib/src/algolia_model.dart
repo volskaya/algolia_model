@@ -44,14 +44,13 @@ abstract class AlgoliaModel<T> {
   /// build the new model.
   static Future<D> fromFirestoreSnapshot<D extends FirestoreModel<D>>(AlgoliaObjectSnapshot snapshot) {
     assert(referenceBuilder != null, '[AlgoliaModel.referenceBuilder] must be defined');
-    assert(FirebaseModel.builder != null, '[FirebaseModel.builder] must be defined');
 
     final data = _withUnderscoreTags(snapshot.data);
     final reference = referenceBuilder!<D>(snapshot.ref);
 
     return FirestoreModel.referenceWithBuilder(
       reference,
-      () => FirebaseModel.builder!<D>(data),
+      () => FirebaseModel.builder<D>(data),
     );
   }
 }
