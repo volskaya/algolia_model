@@ -26,8 +26,8 @@ class AlgoliaHighlightResult with _$AlgoliaHighlightResult {
   const factory AlgoliaHighlightResult({
     @JsonKey() required String value,
     @JsonKey() required AlgoliaHighlightMatchLevel matchLevel,
-    @JsonKey(defaultValue: <String>[]) @Default(<String>[]) List<String> matchedWords,
-    @JsonKey(defaultValue: false) @Default(false) bool fullyHighlighted,
+    @JsonKey() @Default(<String>[]) List<String> matchedWords,
+    @JsonKey() @Default(false) bool fullyHighlighted,
   }) = _AlgoliaHighlightResult;
 
   /// Deserialize [AlgoliaHighlightResult] from json.

@@ -1,5 +1,7 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'highlight_result.dart';
 
@@ -10,41 +12,12 @@ part of 'highlight_result.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AlgoliaHighlightResult _$AlgoliaHighlightResultFromJson(
     Map<String, dynamic> json) {
   return _AlgoliaHighlightResult.fromJson(json);
 }
-
-/// @nodoc
-class _$AlgoliaHighlightResultTearOff {
-  const _$AlgoliaHighlightResultTearOff();
-
-  _AlgoliaHighlightResult call(
-      {@JsonKey()
-          required String value,
-      @JsonKey()
-          required AlgoliaHighlightMatchLevel matchLevel,
-      @JsonKey(defaultValue: const <String>[])
-          List<String> matchedWords = const <String>[],
-      @JsonKey(defaultValue: false)
-          bool fullyHighlighted = false}) {
-    return _AlgoliaHighlightResult(
-      value: value,
-      matchLevel: matchLevel,
-      matchedWords: matchedWords,
-      fullyHighlighted: fullyHighlighted,
-    );
-  }
-
-  AlgoliaHighlightResult fromJson(Map<String, Object> json) {
-    return AlgoliaHighlightResult.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $AlgoliaHighlightResult = _$AlgoliaHighlightResultTearOff();
 
 /// @nodoc
 mixin _$AlgoliaHighlightResult {
@@ -53,9 +26,9 @@ mixin _$AlgoliaHighlightResult {
   @JsonKey()
   AlgoliaHighlightMatchLevel get matchLevel =>
       throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: const <String>[])
+  @JsonKey()
   List<String> get matchedWords => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   bool get fullyHighlighted => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,8 +45,8 @@ abstract class $AlgoliaHighlightResultCopyWith<$Res> {
   $Res call(
       {@JsonKey() String value,
       @JsonKey() AlgoliaHighlightMatchLevel matchLevel,
-      @JsonKey(defaultValue: const <String>[]) List<String> matchedWords,
-      @JsonKey(defaultValue: false) bool fullyHighlighted});
+      @JsonKey() List<String> matchedWords,
+      @JsonKey() bool fullyHighlighted});
 }
 
 /// @nodoc
@@ -114,29 +87,30 @@ class _$AlgoliaHighlightResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$AlgoliaHighlightResultCopyWith<$Res>
+abstract class _$$_AlgoliaHighlightResultCopyWith<$Res>
     implements $AlgoliaHighlightResultCopyWith<$Res> {
-  factory _$AlgoliaHighlightResultCopyWith(_AlgoliaHighlightResult value,
-          $Res Function(_AlgoliaHighlightResult) then) =
-      __$AlgoliaHighlightResultCopyWithImpl<$Res>;
+  factory _$$_AlgoliaHighlightResultCopyWith(_$_AlgoliaHighlightResult value,
+          $Res Function(_$_AlgoliaHighlightResult) then) =
+      __$$_AlgoliaHighlightResultCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey() String value,
       @JsonKey() AlgoliaHighlightMatchLevel matchLevel,
-      @JsonKey(defaultValue: const <String>[]) List<String> matchedWords,
-      @JsonKey(defaultValue: false) bool fullyHighlighted});
+      @JsonKey() List<String> matchedWords,
+      @JsonKey() bool fullyHighlighted});
 }
 
 /// @nodoc
-class __$AlgoliaHighlightResultCopyWithImpl<$Res>
+class __$$_AlgoliaHighlightResultCopyWithImpl<$Res>
     extends _$AlgoliaHighlightResultCopyWithImpl<$Res>
-    implements _$AlgoliaHighlightResultCopyWith<$Res> {
-  __$AlgoliaHighlightResultCopyWithImpl(_AlgoliaHighlightResult _value,
-      $Res Function(_AlgoliaHighlightResult) _then)
-      : super(_value, (v) => _then(v as _AlgoliaHighlightResult));
+    implements _$$_AlgoliaHighlightResultCopyWith<$Res> {
+  __$$_AlgoliaHighlightResultCopyWithImpl(_$_AlgoliaHighlightResult _value,
+      $Res Function(_$_AlgoliaHighlightResult) _then)
+      : super(_value, (v) => _then(v as _$_AlgoliaHighlightResult));
 
   @override
-  _AlgoliaHighlightResult get _value => super._value as _AlgoliaHighlightResult;
+  _$_AlgoliaHighlightResult get _value =>
+      super._value as _$_AlgoliaHighlightResult;
 
   @override
   $Res call({
@@ -145,7 +119,7 @@ class __$AlgoliaHighlightResultCopyWithImpl<$Res>
     Object? matchedWords = freezed,
     Object? fullyHighlighted = freezed,
   }) {
-    return _then(_AlgoliaHighlightResult(
+    return _then(_$_AlgoliaHighlightResult(
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -155,7 +129,7 @@ class __$AlgoliaHighlightResultCopyWithImpl<$Res>
           : matchLevel // ignore: cast_nullable_to_non_nullable
               as AlgoliaHighlightMatchLevel,
       matchedWords: matchedWords == freezed
-          ? _value.matchedWords
+          ? _value._matchedWords
           : matchedWords // ignore: cast_nullable_to_non_nullable
               as List<String>,
       fullyHighlighted: fullyHighlighted == freezed
@@ -166,22 +140,18 @@ class __$AlgoliaHighlightResultCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_AlgoliaHighlightResult implements _AlgoliaHighlightResult {
   const _$_AlgoliaHighlightResult(
-      {@JsonKey()
-          required this.value,
-      @JsonKey()
-          required this.matchLevel,
-      @JsonKey(defaultValue: const <String>[])
-          this.matchedWords = const <String>[],
-      @JsonKey(defaultValue: false)
-          this.fullyHighlighted = false});
+      {@JsonKey() required this.value,
+      @JsonKey() required this.matchLevel,
+      @JsonKey() final List<String> matchedWords = const <String>[],
+      @JsonKey() this.fullyHighlighted = false})
+      : _matchedWords = matchedWords;
 
   factory _$_AlgoliaHighlightResult.fromJson(Map<String, dynamic> json) =>
-      _$_$_AlgoliaHighlightResultFromJson(json);
+      _$$_AlgoliaHighlightResultFromJson(json);
 
   @override
   @JsonKey()
@@ -189,11 +159,16 @@ class _$_AlgoliaHighlightResult implements _AlgoliaHighlightResult {
   @override
   @JsonKey()
   final AlgoliaHighlightMatchLevel matchLevel;
+  final List<String> _matchedWords;
   @override
-  @JsonKey(defaultValue: const <String>[])
-  final List<String> matchedWords;
+  @JsonKey()
+  List<String> get matchedWords {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_matchedWords);
+  }
+
   @override
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   final bool fullyHighlighted;
 
   @override
@@ -204,47 +179,44 @@ class _$_AlgoliaHighlightResult implements _AlgoliaHighlightResult {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _AlgoliaHighlightResult &&
-            (identical(other.value, value) ||
-                const DeepCollectionEquality().equals(other.value, value)) &&
-            (identical(other.matchLevel, matchLevel) ||
-                const DeepCollectionEquality()
-                    .equals(other.matchLevel, matchLevel)) &&
-            (identical(other.matchedWords, matchedWords) ||
-                const DeepCollectionEquality()
-                    .equals(other.matchedWords, matchedWords)) &&
-            (identical(other.fullyHighlighted, fullyHighlighted) ||
-                const DeepCollectionEquality()
-                    .equals(other.fullyHighlighted, fullyHighlighted)));
+        (other.runtimeType == runtimeType &&
+            other is _$_AlgoliaHighlightResult &&
+            const DeepCollectionEquality().equals(other.value, value) &&
+            const DeepCollectionEquality()
+                .equals(other.matchLevel, matchLevel) &&
+            const DeepCollectionEquality()
+                .equals(other._matchedWords, _matchedWords) &&
+            const DeepCollectionEquality()
+                .equals(other.fullyHighlighted, fullyHighlighted));
   }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(value) ^
-      const DeepCollectionEquality().hash(matchLevel) ^
-      const DeepCollectionEquality().hash(matchedWords) ^
-      const DeepCollectionEquality().hash(fullyHighlighted);
 
   @JsonKey(ignore: true)
   @override
-  _$AlgoliaHighlightResultCopyWith<_AlgoliaHighlightResult> get copyWith =>
-      __$AlgoliaHighlightResultCopyWithImpl<_AlgoliaHighlightResult>(
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(value),
+      const DeepCollectionEquality().hash(matchLevel),
+      const DeepCollectionEquality().hash(_matchedWords),
+      const DeepCollectionEquality().hash(fullyHighlighted));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_AlgoliaHighlightResultCopyWith<_$_AlgoliaHighlightResult> get copyWith =>
+      __$$_AlgoliaHighlightResultCopyWithImpl<_$_AlgoliaHighlightResult>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AlgoliaHighlightResultToJson(this);
+    return _$$_AlgoliaHighlightResultToJson(this);
   }
 }
 
 abstract class _AlgoliaHighlightResult implements AlgoliaHighlightResult {
   const factory _AlgoliaHighlightResult(
-          {@JsonKey() required String value,
-          @JsonKey() required AlgoliaHighlightMatchLevel matchLevel,
-          @JsonKey(defaultValue: const <String>[]) List<String> matchedWords,
-          @JsonKey(defaultValue: false) bool fullyHighlighted}) =
-      _$_AlgoliaHighlightResult;
+      {@JsonKey() required final String value,
+      @JsonKey() required final AlgoliaHighlightMatchLevel matchLevel,
+      @JsonKey() final List<String> matchedWords,
+      @JsonKey() final bool fullyHighlighted}) = _$_AlgoliaHighlightResult;
 
   factory _AlgoliaHighlightResult.fromJson(Map<String, dynamic> json) =
       _$_AlgoliaHighlightResult.fromJson;
@@ -257,13 +229,13 @@ abstract class _AlgoliaHighlightResult implements AlgoliaHighlightResult {
   AlgoliaHighlightMatchLevel get matchLevel =>
       throw _privateConstructorUsedError;
   @override
-  @JsonKey(defaultValue: const <String>[])
+  @JsonKey()
   List<String> get matchedWords => throw _privateConstructorUsedError;
   @override
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   bool get fullyHighlighted => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AlgoliaHighlightResultCopyWith<_AlgoliaHighlightResult> get copyWith =>
+  _$$_AlgoliaHighlightResultCopyWith<_$_AlgoliaHighlightResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
